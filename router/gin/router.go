@@ -121,8 +121,7 @@ func (r ginRouter) registerKrakendEndpoint(method string, endpoint *config.Endpo
 	path := endpoint.Endpoint
 	if method != http.MethodGet && totBackends > 1 {
 		if !router.IsValidSequentialEndpoint(endpoint) {
-			r.cfg.Logger.Error(method, " endpoints with sequential enabled is only the last one is allowed to be non GET! Ignoring", path)
-			return
+			r.cfg.Logger.Info(method, " Enabling POST endpoint with more than 1 backend", path)
 		}
 	}
 

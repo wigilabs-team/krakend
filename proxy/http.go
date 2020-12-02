@@ -102,10 +102,10 @@ func NewRequestBuilderMiddleware(remote *config.Backend) Middleware {
 			panic(ErrTooManyProxies)
 		}
 		return func(ctx context.Context, request *Request) (*Response, error) {
-			r := request.Clone()
+			r := CloneRequest(request)
 			r.GeneratePath(remote.URLPattern)
 			r.Method = remote.Method
-			return next[0](ctx, &r)
+			return next[0](ctx, r)
 		}
 	}
 }
